@@ -1,70 +1,94 @@
-const db=require("../config/db")
+const db = require("../config/db");
 
+const addEmployee = (req, res) => {
+  const { name, email, phone, department } = req.body;
 
+  const sql =
+    "INSERT INTO employees (name, email, phone, department) VALUES (?, ?, ?, ?)";
 
- const addEmployee=(req,res)=>{
-const {name,email, phone, department}=req.body;
+  db.query(
+    sql,
+    [name, email, phone, department],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
 
-const sql="insert into employees (name,email, phone, department)values (?,?,?,?)"
+      res.status(201).json({
+        message: "Employee Added Successfully",
+      });
+    }
+  );
+};
 
-db.query(sql,[name,email,phone,department],(err,result)=>{
-if(err){
-    return res.status(500).json(err)
-}res.json({message:"Employee Data Added Successfully.."})
-})
- }
+const getEmployees = (req, res) => {
+  const sql = "SELECT * FROM employees";
 
+  db.query(sql, (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
 
+    res.status(200).json(result);
+  });
+};
 
-  const getEmployee=(req,res)=>{
+const getEmployeeById = (req, res) => {
+  const { id } = req.params;
 
-const sql="select * from employees"
+  const sql = "SELECT * FROM employees WHERE id = ?";
 
-db.query(sql,(err,result)=>{
-if(err){
-    return res.status(500).json(err)
-}res.json(result)
-})
- }
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
 
-  const getEmployeeById=(req,res)=>{
-const {id}=req.params;
-const sql="select * from employees"
+    res.status(200).json(result[0]);
+  });
+};
 
-db.query(sql,[id],(err,result)=>{
-if(err){
-    return res.status(500).json(err)
-}res.json(result[0])
-})
- }
+const updateEmployee = (req, res) => {
+  const { id } = req.params;
+  const { name, email, phone, department } = req.body;
 
+  const sql =
+    "UPDATE employees SET name=?, email=?, phone=?, department=? WHERE id=?";
 
- 
- const updateEmployee=(req,res)=>{
-    const {id}=req.params
-const {name,email, phone, department}=req.body;
+  db.query(
+    sql,
+    [name, email, phone, department, id],
+    (err, result) => {
+      if (err) {
+        return res.status(500).json(err);
+      }
 
-const sql="update employees set name=?,email =?, phone=?,department=? where id=?"
+      res.status(200).json({
+        message: "Employee Updated Successfully",
+      });
+    }
+  );
+};
 
-db.query(sql,[name,email, phone, department,id],(err,result)=>{
-if(err){
-    return res.status(500).json(err)
-}res.json({message:"Employee Data updated Successfully.."})
-})
- }
+const deleteEmployee = (req, res) => {
+  const { id } = req.params;
 
+  const sql = "DELETE FROM employees WHERE id=?";
 
-   const deleteEmployee=(req,res)=>{
-const {id}=req.params;
-const sql="delete from employees where id = ?"
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      return res.status(500).json(err);
+    }
 
-db.query(sql,[id],(err,result)=>{
-if(err){
-    return res.status(500).json(err)
-}res.json({message:"Employee Data deleted"})
-})
- }
+    res.status(200).json({
+      message: "Employee Deleted Successfully",
+    });
+  });
+};
 
- module.exports={
-    addEmployee,getEmployee,getEmployeeById,updateEmployee,deleteEmployee
- }
+module.exports = {
+  addEmployee,
+  getEmployees,
+  getEmployeeById,
+  updateEmployee,
+  deleteEmployee,
+};
