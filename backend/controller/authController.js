@@ -8,7 +8,7 @@ const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     const checkUser =
-      "SELECT * FROM users WHERE email = ?";
+      "select * from users where email = ?";
 
     db.query(checkUser, [email], async (err, result) => {
       if (err) {
@@ -25,7 +25,7 @@ const registerUser = async (req, res) => {
         await bcrypt.hash(password, 10);
 
       const sql =
-        "INSERT INTO users(name,email,password) VALUES(?,?,?)";
+        "insert into users(name,email,password) VALUES(?,?,?)";
 
       db.query(
         sql,
@@ -52,7 +52,7 @@ const loginUser = (req, res) => {
   const { email, password } = req.body;
 
   const sql =
-    "SELECT * FROM users WHERE email = ?";
+    "select * from users where email = ?";
 
   db.query(sql, [email], async (err, result) => {
     if (err) {
@@ -84,7 +84,7 @@ const loginUser = (req, res) => {
         id: user.id,
         email: user.email,
       },
-      "secretkey",
+ "secretkey",
       {
         expiresIn: "1h",
       }
