@@ -1,0 +1,64 @@
+.dashboard-container {
+  width: 90%;
+  margin: 30px auto;
+}
+
+.dashboard-container h2,
+.dashboard-container h3 {
+  text-align: center;
+}
+
+.dashboard-container input {
+  padding: 10px;
+  width: 250px;
+  margin-right: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.add-btn {
+  padding: 10px 15px;
+  background: #16a34a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.table th {
+  background: #1e293b;
+  color: white;
+}
+
+.table th,
+.table td {
+  padding: 12px;
+  text-align: center;
+}
+
+.table button {
+  margin: 0 5px;
+  padding: 6px 12px;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.table button:nth-child(1) {
+  background: #2563eb;
+}
+
+.table button:nth-child(2) {
+  background: orange;
+}
+
+.table button:nth-child(3) {
+  background: crimson;
+}
